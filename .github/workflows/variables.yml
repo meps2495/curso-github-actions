@@ -1,0 +1,16 @@
+name: Saludo Personalizado con Variables
+run-name: ¡Dominando las Variables!
+on:
+  workflow_dispatch
+env:
+  DIA_DE_LA_SEMANA: Martes
+jobs:
+  saludo-personalizado:
+    runs-on: ubuntu-latest
+    env:
+      SALUDO: ¡Hola!
+    steps:
+      - name: Ejecutar Saludo
+        run: echo "$SALUDO, $NOMBRE. Hoy es $DIA_DE_LA_SEMANA."
+        env:
+          NOMBRE: Moni
