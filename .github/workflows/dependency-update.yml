@@ -1,0 +1,34 @@
+# dependency-update.yml
+
+name: Actualizar Dependencias
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"  # Ejecutar cada domingo a medianoche (UTC)
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Puedes ajustar la versión de Node.js según tus necesidades
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Actualizar dependencias
+        run: npm update
+
+      - name: Confirmar cambios
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Actualizar dependencias automáticamente"
+          git push
